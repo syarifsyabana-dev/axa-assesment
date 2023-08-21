@@ -11,8 +11,8 @@ const Posts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
-  async function loadData() {
-    await setIsLoading(true);
+  const loadData = () => {
+    setIsLoading(true);
     const params = searchParams.get("userId")
       ? `?userId=${searchParams.get("userId")}`
       : "";
@@ -36,7 +36,7 @@ const Posts = () => {
           <h3>Posts</h3>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button icon={<ReloadOutlined />} onClick={() => loadData()}>
+          <Button icon={<ReloadOutlined />} onClick={loadData}>
             Reload
           </Button>
         </Col>

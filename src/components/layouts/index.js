@@ -1,5 +1,9 @@
 import React from "react";
-import { CommentOutlined, FileImageOutlined, ReadOutlined, UserSwitchOutlined } from "@ant-design/icons";
+import {
+  FileImageOutlined,
+  ReadOutlined,
+  UserSwitchOutlined,
+} from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -21,11 +25,6 @@ const menuItems = [
     key: "albums",
     label: "Albums",
   },
-  {
-    icon: <CommentOutlined />,
-    key: "comments",
-    label: "Comments",
-  },
 ];
 
 const MainLayout = ({ children }) => {
@@ -33,7 +32,6 @@ const MainLayout = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
-
 
   return (
     <Layout>
@@ -77,7 +75,7 @@ const MainLayout = ({ children }) => {
               style={{
                 height: "100%",
               }}
-              onClick={({key}) => navigate(`/${key}`)}
+              onClick={({ key }) => navigate(`/${key}`)}
               items={menuItems}
             />
           </Sider>

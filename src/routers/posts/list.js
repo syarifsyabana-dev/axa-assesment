@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { List } from "antd";
+import { Button, List } from "antd";
+import { useNavigate } from "react-router-dom";
+import { CommentOutlined } from "@ant-design/icons";
 
 const PostList = ({ data, loading }) => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -19,11 +22,19 @@ const PostList = ({ data, loading }) => {
       loading={loading}
       dataSource={data}
       renderItem={(item) => (
-        <List.Item>
-          <List.Item.Meta
-            title={item.title}
-            description={item.body}
-          />
+        <List.Item
+          actions={[
+            <Button
+              key="btn-posts"
+              type="link"
+              icon={<CommentOutlined />}
+              onClick={() => navigate(`/comments?postId=${item.id}`)}
+            >
+              Comments
+            </Button>,
+          ]}
+        >
+          <List.Item.Meta title={item.title} description={item.body} />
         </List.Item>
       )}
     />

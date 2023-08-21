@@ -4,6 +4,7 @@ import Users from "./users";
 import MainLayout from "../components/layouts";
 import Posts from "./posts";
 import Albums from "./albums";
+import Comments from "./comments";
 
 const RouterApp = () => {
   return (
@@ -14,6 +15,7 @@ const RouterApp = () => {
           <Route path="/users" element={<Users />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/albums" element={<Albums />} />
+          <Route path="/comments" element={<Comments />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>
