@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ReloadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
-import AlbumList from "./list";
+import PostList from "./list";
 
 const Albums = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,8 +11,8 @@ const Albums = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
 
-  async function loadData() {
-    await setIsLoading(true);
+  const loadData = () => {
+    setIsLoading(true);
     const params = searchParams.get("userId")
       ? `?userId=${searchParams.get("userId")}`
       : "";
@@ -36,12 +36,12 @@ const Albums = () => {
           <h3>Albums</h3>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button icon={<ReloadOutlined />} onClick={() => loadData()}>
+          <Button icon={<ReloadOutlined />} onClick={loadData}>
             Reload
           </Button>
         </Col>
       </Row>
-      <AlbumList data={albums} loading={isLoading} />
+      <PostList data={albums} loading={isLoading} />
     </div>
   );
 };
