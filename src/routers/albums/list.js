@@ -4,7 +4,7 @@ import { Card, Col, Pagination, Row, Spin } from "antd";
 const { Meta } = Card;
 
 const AlbumList = ({ data = [], loading }) => {
-  const [perPage, setPerPage] = useState(4);
+  const perPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const [orders, setOrders] = useState(0);
   const [limits, setLimits] = useState(4);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Button, List } from "antd";
-import { ReadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const UserList = ({ data, loading }) => {
@@ -27,11 +26,17 @@ const UserList = ({ data, loading }) => {
           actions={[
             <Button
               key="btn-posts"
-              type="link"
+              type="default"
               onClick={() => navigate(`/posts?userId=${item.id}`)}
-              icon={<ReadOutlined />}
             >
-              posts
+              Posts
+            </Button>,
+            <Button
+              key="btn-albums"
+              type="default"
+              onClick={() => navigate(`/albums?userId=${item.id}`)}
+            >
+              Albums
             </Button>,
           ]}
         >
