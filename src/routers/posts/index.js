@@ -1,15 +1,20 @@
-import { Button, Col, Row, message } from "antd";
+import { Button, Col, Row, Space, Spin, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ReloadOutlined } from "@ant-design/icons";
+import { FileAddFilled, ReloadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import PostList from "./list";
+import ModalPost from "./modal";
 
 const Posts = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [detail, setDetail] = useState(null);
+
+  console.log(detail);
 
   const loadData = () => {
     setIsLoading(true);
@@ -23,26 +28,52 @@ const Posts = () => {
       })
       .catch((error) => message.error(error.message))
       .finally(() => setIsLoading(false));
-  }
+  };
 
   useEffect(() => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (!isModalOpen) {
+      setDetail(null);
+    }
+  }, [isModalOpen]);
+
   return (
-    <div>
+    <Spin spinning={isLoading}>
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <h3>Posts</h3>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button icon={<ReloadOutlined />} onClick={loadData}>
-            Reload
-          </Button>
+          <Space>
+            <Button
+              type="primary"
+              icon={<FileAddFilled />}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Add Post
+            </Button>
+            <Button icon={<ReloadOutlined />} onClick={loadData}>
+              Reload
+            </Button>
+          </Space>
         </Col>
       </Row>
-      <PostList data={posts} loading={isLoading} />
-    </div>
+      <PostList
+        data={posts}
+        setIsModalOpen={setIsModalOpen}
+        setDetail={setDetail}
+        setIsLoading={setIsLoading}
+      />
+      <ModalPost
+        detail={detail}
+        setIsLoading={setIsLoading}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
+    </Spin>
   );
 };
 
