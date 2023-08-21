@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { List } from "antd";
 
-const UserList = ({ data, loading }) => {
+const PostList = ({ data, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const UserList = ({ data, loading }) => {
     />
   );
 };
-export default UserList;
+export default PostList;

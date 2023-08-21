@@ -3,13 +3,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ReloadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
-import PostList from "./list";
+import AlbumList from "./list";
 
-const Posts = () => {
+const Albums = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [albums, setAlbums] = useState([]);
 
   async function loadData() {
     await setIsLoading(true);
@@ -17,9 +17,9 @@ const Posts = () => {
       ? `?userId=${searchParams.get("userId")}`
       : "";
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts${params}`)
+      .get(`https://jsonplaceholder.typicode.com/albums${params}`)
       .then((res) => {
-        setPosts(res.data);
+        setAlbums(res.data);
       })
       .catch((error) => message.error(error.message))
       .finally(() => setIsLoading(false));
@@ -33,7 +33,7 @@ const Posts = () => {
     <div>
       <Row gutter={[16, 16]}>
         <Col span={12}>
-          <h3>Posts</h3>
+          <h3>Albums</h3>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
           <Button icon={<ReloadOutlined />} onClick={() => loadData()}>
@@ -41,9 +41,9 @@ const Posts = () => {
           </Button>
         </Col>
       </Row>
-      <PostList data={posts} loading={isLoading} />
+      <AlbumList data={albums} loading={isLoading} />
     </div>
   );
 };
 
-export default Posts;
+export default Albums;
