@@ -17,3 +17,5 @@ Berikut adalah langkah-langkah untuk menjalankan aplikasi ini di komputer lokal 
 
 Aplikasi akan dibuka di browser pada alamat http://localhost:3000/.
 
+#### Demo Aplikasi
+https://syarif-syabana-axa-assesment.vercel.app/ 
