@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Modal, message } from "antd";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
@@ -8,6 +8,16 @@ const ModalPost = ({ isModalOpen, setIsModalOpen, setIsLoading, detail }) => {
   const [searchParams] = useSearchParams();
 
   const userId = Number(searchParams.get("userId")) || 1;
+
+  useEffect(() => {
+    if (detail) {
+      form.setFieldsValue({
+        title: detail.title,
+        body: detail.body,
+      })
+    }
+  }, [detail])
+  
 
   const handleOk = () => {
     setIsLoading(true);
@@ -68,6 +78,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen, setIsLoading, detail }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
 
   return (
@@ -79,6 +90,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen, setIsLoading, detail }) => {
         onCancel={handleCancel}
         width={800}
         centered
+        okText="Save"
       >
         <Form name="postForm" layout="vertical" form={form}>
           <Form.Item

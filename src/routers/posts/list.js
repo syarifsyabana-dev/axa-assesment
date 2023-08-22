@@ -20,12 +20,14 @@ const PostList = ({
   }, [data]);
 
   const handleEdit = async (id) => {
+    setIsLoading(true);
     axios
       .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
       .then((res) => {
         setDetail(res.data);
         setIsModalOpen(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleDelete = async (id) => {

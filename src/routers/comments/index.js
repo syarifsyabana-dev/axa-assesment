@@ -1,16 +1,18 @@
-import { Button, Col, Row, Spin, message } from "antd";
+import { Button, Col, Row, Space, Spin, message } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ReloadOutlined } from "@ant-design/icons";
+import { CommentOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import PostList from "./list";
+import CommentForm from "./form";
 
 const Comments = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [detail, setDetail] = useState(null);
+  const [formComment, setFormComment] = useState(false);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -54,13 +56,25 @@ const Comments = () => {
           <p>{detail?.body}</p>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button icon={<ReloadOutlined />} onClick={loadData}>
-            Reload
-          </Button>
+          {!formComment && (
+            <Space>
+              <Button
+                type="primary"
+                icon={<CommentOutlined />}
+                onClick={() => setFormComment(true)}
+              >
+                Comment
+              </Button>
+              <Button icon={<ReloadOutlined />} onClick={loadData}>
+                Reload
+              </Button>
+            </Space>
+          )}
         </Col>
       </Row>
       <h3>Comments</h3>
-      <PostList data={comments} />
+      {!formComment && <PostList data={comments} />}
+      {formComment && <CommentForm setFormComment={setFormComment} />}
     </Spin>
   );
 };

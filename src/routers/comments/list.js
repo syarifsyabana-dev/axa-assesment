@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { List } from "antd";
+import { Button, List, Popconfirm } from "antd";
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
 
 const CommentList = ({ data, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -8,6 +9,14 @@ const CommentList = ({ data, loading }) => {
     // current page returns to 1 when data is reloaded
     setCurrentPage(1);
   }, [data]);
+
+  const handleEdit = (id) => {
+    console.log(id);
+  }
+
+  const handleDelete = (id) => {
+    console.log(id);
+  }
 
   return (
     <List
@@ -19,11 +28,36 @@ const CommentList = ({ data, loading }) => {
       loading={loading}
       dataSource={data}
       renderItem={(item) => (
-        <List.Item>
-          <List.Item.Meta
-            title={item.name}
-            description={item.email}
-          />
+        <List.Item
+          actions={[
+            <Button
+              key="btn-update"
+              type="link"
+              icon={<EditFilled />}
+              onClick={() => handleEdit(item.id)}
+            >
+              Edit
+            </Button>,
+            <Popconfirm
+              title="Delete the post"
+              description="Are you sure to delete this post?"
+              onConfirm={() => handleDelete(item.id)}
+              okText="Yes"
+              cancelText="No"
+              placement="topLeft"
+            >
+              <Button
+                key="btn-delee"
+                type="link"
+                danger
+                icon={<DeleteFilled />}
+              >
+                Delete
+              </Button>
+            </Popconfirm>,
+          ]}
+        >
+          <List.Item.Meta title={item.name} description={item.email} />
           {item.body}
         </List.Item>
       )}
