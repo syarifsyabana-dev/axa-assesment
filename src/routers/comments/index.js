@@ -12,6 +12,7 @@ const Comments = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [detail, setDetail] = useState(null);
+  const [commentDetail, setCommentDetail] = useState(null);
   const [formComment, setFormComment] = useState(false);
 
   const loadData = async () => {
@@ -73,8 +74,22 @@ const Comments = () => {
         </Col>
       </Row>
       <h3>Comments</h3>
-      {!formComment && <PostList data={comments} />}
-      {formComment && <CommentForm setFormComment={setFormComment} />}
+      {!formComment && (
+        <PostList
+          setCommentDetail={setCommentDetail}
+          setFormComment={setFormComment}
+          data={comments}
+          setIsLoading={setIsLoading}
+        />
+      )}
+      {formComment && (
+        <CommentForm
+          commentDetail={commentDetail}
+          setCommentDetail={setCommentDetail}
+          setIsLoading={setIsLoading}
+          setFormComment={setFormComment}
+        />
+      )}
     </Spin>
   );
 };

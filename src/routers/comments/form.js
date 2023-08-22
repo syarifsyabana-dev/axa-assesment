@@ -1,15 +1,104 @@
-import { Button, Form, Input, Space } from "antd";
-import React from "react";
+import { Button, Form, Input, Space, message } from "antd";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const CommentForm = ({ setFormComment }) => {
+const CommentForm = ({
+  commentDetail,
+  setFormComment,
+  setIsLoading,
+  setCommentDetail,
+}) => {
+  const [searchParams] = useSearchParams();
   const [form] = Form.useForm();
+  const postId = Number(searchParams.get("postId")) || 1;
+
+  useEffect(() => {
+    if (commentDetail) {
+      form.setFieldsValue({
+        name: commentDetail.name,
+        email: commentDetail.email,
+        body: commentDetail.body,
+      });
+    }
+  }, [form, commentDetail]);
 
   const handleCancel = () => {
     form.resetFields();
     setFormComment(false);
+    setCommentDetail(null);
   };
+
+  const handlePost = () => {
+    setIsLoading(true);
+    form
+      .validateFields()
+      .then(async (values) => {
+        const payload = {
+          ...values,
+          postId,
+        };
+        setFormComment(false);
+        await axios
+          .post("https://jsonplaceholder.typicode.com/comments", payload, {
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
+          .then(() => message.success("Comment added successfully"))
+          .catch((error) => message.error(error.message));
+        await form.resetFields();
+      })
+      .catch((info) => {
+        message.error(info.message);
+      })
+      .finally(() => {
+        setCommentDetail(null);
+        setIsLoading(false);
+      });
+  };
+
+  const handleUpdate = () => {
+    setIsLoading(true);
+    form
+      .validateFields()
+      .then(async (values) => {
+        const payload = {
+          id: commentDetail.id,
+          ...values,
+          postId,
+        };
+        setFormComment(false);
+        await axios
+          .put(
+            `https://jsonplaceholder.typicode.com/comments/${commentDetail.id}`,
+            payload,
+            {
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            }
+          )
+          .then(() => message.success("Comment updated successfully"))
+          .catch((error) => message.error(error.message));
+        await form.resetFields();
+      })
+      .catch((info) => {
+        message.error(info.message);
+      })
+      .finally(() => {
+        setCommentDetail(null);
+        setIsLoading(false);
+      });
+  };
+
   return (
-    <Form name="postForm" layout="vertical" form={form}>
+    <Form
+      name="postForm"
+      onFinish={commentDetail ? handleUpdate : handlePost}
+      layout="vertical"
+      form={form}
+    >
       <Form.Item
         name={"name"}
         label="Name"

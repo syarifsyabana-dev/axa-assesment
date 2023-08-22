@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, List, Popconfirm } from "antd";
+import { Button, List, Popconfirm, message } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import axios from "axios";
 
-const CommentList = ({ data, loading }) => {
+const CommentList = ({
+  data,
+  loading,
+  setCommentDetail,
+  setFormComment,
+  setIsLoading,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -10,13 +17,20 @@ const CommentList = ({ data, loading }) => {
     setCurrentPage(1);
   }, [data]);
 
-  const handleEdit = (id) => {
-    console.log(id);
-  }
+  const handleEdit = (data) => {
+    setCommentDetail(data);
+    setFormComment(true);
+  };
 
   const handleDelete = (id) => {
-    console.log(id);
-  }
+    setIsLoading(true);
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/comments/${id}`)
+      .then(() => {
+        message.success("Comment deleted successfully");
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <List
@@ -34,7 +48,7 @@ const CommentList = ({ data, loading }) => {
               key="btn-update"
               type="link"
               icon={<EditFilled />}
-              onClick={() => handleEdit(item.id)}
+              onClick={() => handleEdit(item)}
             >
               Edit
             </Button>,
