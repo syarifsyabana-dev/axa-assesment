@@ -14,8 +14,6 @@ const Posts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [detail, setDetail] = useState(null);
 
-  console.log(detail);
-
   const loadData = () => {
     setIsLoading(true);
     const params = searchParams.get("userId")
