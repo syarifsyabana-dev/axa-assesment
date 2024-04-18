@@ -11,7 +11,7 @@ const Users = () => {
   async function loadData() {
     await setIsLoading(true);
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get(`${process.env.REACT_APP_BASE_URL}/users`)
       .then((res) => {
         setUsers(res.data);
       })

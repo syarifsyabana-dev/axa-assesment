@@ -25,7 +25,7 @@ const CommentList = ({
   const handleDelete = (id) => {
     setIsLoading(true);
     axios
-      .delete(`https://jsonplaceholder.typicode.com/comments/${id}`)
+      .delete(`${process.env.REACT_APP_BASE_URL}/comments/${id}`)
       .then(() => {
         message.success("Comment deleted successfully");
       })

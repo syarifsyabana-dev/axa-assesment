@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Image, Row, Spin } from "antd";
+import { Card, Col, Image, Row, Skeleton, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const { Meta } = Card;
@@ -13,20 +13,23 @@ const PhotoList = ({ data = [], loading }) => {
         {data.map((x, y) => {
           return (
             <Col span={4} key={y}>
-              <Card
-                hoverable
-                cover={
-                  <Image
-                    alt={x.title}
-                    preview={{
-                      src: x.url,
-                    }}
-                    src={x.thumbnailUrl}
-                  />
-                }
-              >
-                <Meta title={x.title} />
-              </Card>
+              {loading && <Skeleton.Image style={{width: '180px', height: '180px'}} active />}
+              {!loading && (
+                <Card
+                  hoverable
+                  cover={
+                    <Image
+                      alt={x.title}
+                      preview={{
+                        src: x.url,
+                      }}
+                      src={x.thumbnailUrl}
+                    />
+                  }
+                >
+                  <Meta title={x.title} />
+                </Card>
+              )}
             </Col>
           );
         })}

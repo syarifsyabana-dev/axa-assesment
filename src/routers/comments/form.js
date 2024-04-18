@@ -40,7 +40,7 @@ const CommentForm = ({
         };
         setFormComment(false);
         await axios
-          .post("https://jsonplaceholder.typicode.com/comments", payload, {
+          .post(`${process.env.REACT_APP_BASE_URL}/comments`, payload, {
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
@@ -71,7 +71,7 @@ const CommentForm = ({
         setFormComment(false);
         await axios
           .put(
-            `https://jsonplaceholder.typicode.com/comments/${commentDetail.id}`,
+            `${process.env.REACT_APP_BASE_URL}/comments/${commentDetail.id}`,
             payload,
             {
               headers: {

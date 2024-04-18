@@ -22,7 +22,7 @@ const PostList = ({
   const handleEdit = async (id) => {
     setIsLoading(true);
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`)
       .then((res) => {
         setDetail(res.data);
         setIsModalOpen(true);
@@ -33,7 +33,7 @@ const PostList = ({
   const handleDelete = async (id) => {
     setIsLoading(true);
     axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}`)
       .then((res) => {
         message.success("Post deleted successfully");
       })

@@ -22,9 +22,9 @@ const Comments = () => {
       // Get posts detail
       axios
         .all([
-          axios.get(`https://jsonplaceholder.typicode.com/posts/${params}`),
+          axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${params}`),
           axios.get(
-            `https://jsonplaceholder.typicode.com/posts/${params}/comments`
+            `${process.env.REACT_APP_BASE_URL}/posts/${params}/comments`
           ),
         ])
         .then(

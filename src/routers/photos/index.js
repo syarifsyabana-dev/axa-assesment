@@ -16,7 +16,7 @@ const Photos = () => {
     const params = searchParams.get("albumId");
     if (params) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/photos?albumId=${params}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/photos?albumId=${params}`)
         .then((res) => {
           setPhotos(res.data);
         })

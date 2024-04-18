@@ -20,7 +20,7 @@ const Posts = () => {
       ? `?userId=${searchParams.get("userId")}`
       : "";
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts${params}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/posts${params}`)
       .then((res) => {
         setPosts(res.data);
       })

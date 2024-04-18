@@ -1,22 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import RouterApp from './routers';
-import { ConfigProvider } from 'antd';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import RouterApp from "./routers";
+import { ConfigProvider } from "antd";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ConfigProvider
-    theme={{
-      token: {
-        colorPrimary: '#00008f',
-      },
-    }}
-  >
-    <RouterApp />
-  </ConfigProvider>
+      theme={{
+        token: {
+          colorPrimary: "#00008f",
+        },
+      }}
+    >
+      <RouterApp />
+    </ConfigProvider>
   </React.StrictMode>
 );
 

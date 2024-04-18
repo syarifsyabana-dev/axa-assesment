@@ -17,7 +17,7 @@ const Albums = () => {
       ? `?userId=${searchParams.get("userId")}`
       : "";
     axios
-      .get(`https://jsonplaceholder.typicode.com/albums${params}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/albums${params}`)
       .then((res) => {
         setAlbums(res.data);
       })
